@@ -1,7 +1,6 @@
 package com.bphillips91.imagesearch;
 
-import android.os.Parcelable;
-import android.os.PersistableBundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,22 +11,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         parseME = null;
 
-        mSearch = (EditText)findViewById(R.id.search_et);
+        mSearch = (EditText) findViewById(R.id.search_et);
         mButton = (Button) findViewById(R.id.search_button);
         photoRequest = Volley.newRequestQueue(this);
         mRecycler = (RecyclerView) findViewById(R.id.photo_recycler);
@@ -85,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String keyWord = mSearch.getText().toString();
 
-                String url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2fbd51c2f84ff08464b5a5bdbe6e89be&tags="+keyWord+"&format=json&nojsoncallback=1";
+                String url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2fbd51c2f84ff08464b5a5bdbe6e89be&tags=" + keyWord + "&format=json&nojsoncallback=1";
 
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                           parseJSON(response.toString());
-                        Log.d(TAG, "onResponse: "+response.toString());
+                        parseJSON(response.toString());
+                        Log.d(TAG, "onResponse: " + response.toString());
 
 
                     }
@@ -110,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-    public void parseJSON(String s){
+
+    public void parseJSON(String s) {
         parseME = s;
         photoList = new ArrayList<Photo>();
         try {
@@ -142,25 +138,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if(parseME!= null) {
+        if (parseME != null) {
             outState.putString("JSON", parseME);
         }
-        Log.d(TAG, "onSaveInstanceState: "+parseME);
+        Log.d(TAG, "onSaveInstanceState: " + parseME);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "onRestoreInstanceState: "+savedInstanceState.getString("JSON"));
-            if(savedInstanceState.getString("JSON")!= null) {
-                String jsonString = savedInstanceState.getString("JSON");
-                parseJSON(jsonString);
-            }
+        Log.d(TAG, "onRestoreInstanceState: " + savedInstanceState.getString("JSON"));
+        if (savedInstanceState.getString("JSON") != null) {
+            String jsonString = savedInstanceState.getString("JSON");
+            parseJSON(jsonString);
+        }
 
     }
 }

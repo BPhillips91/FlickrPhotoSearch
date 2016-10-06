@@ -42,11 +42,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     @Override
     public void onBindViewHolder(PhotoViewHolder holder, int position) {
-       // Log.d("RECYCLERVIEW", "onBindViewHolder: "+photoList.size());
-        String imgURL = "https://farm" +photoList.get(position).getFarmID()+".staticflickr.com/"+photoList.get(position).getServerID()+"/"+photoList.get(position).getPhotoID()+
-                "_"+photoList.get(position).getSecret()+"_m.jpg";
+        String imgURL = "https://farm" + photoList.get(position).getFarmID() + ".staticflickr.com/" + photoList.get(position).getServerID() + "/" + photoList.get(position).getPhotoID() +
+                "_" + photoList.get(position).getSecret() + "_m.jpg";
 
-        Log.d("RECYCLERVIEW", "onBindViewHolder: "+imgURL);
+        Log.d("RECYCLERVIEW", "onBindViewHolder: " + imgURL);
         Picasso.with(this.mContext)
                 .load(imgURL)
                 .into(holder.mPhoto);
@@ -64,30 +63,29 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         ImageView mPhoto;
         Context mContext;
         List<Photo> photoList = new ArrayList<>();
+
         public PhotoViewHolder(View itemView, List<Photo> mPhotoList, Context context) {
             super(itemView);
             mPhoto = (ImageView) itemView.findViewById(R.id.photo_image);
-            this.photoList= mPhotoList;
+            this.photoList = mPhotoList;
             this.mContext = context;
             mPhoto.setOnClickListener(this);
         }
-
 
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
             Photo clickedPhoto = this.photoList.get(position);
-            Intent intent = new Intent (this.mContext, PhotoDetail.class);
+            Intent intent = new Intent(this.mContext, PhotoDetail.class);
 
-            intent.putExtra("photoID",clickedPhoto.getPhotoID());
-            intent.putExtra("title",clickedPhoto.getTitle());
-            intent.putExtra("farmID",clickedPhoto.getFarmID());
-            intent.putExtra("serverID",clickedPhoto.getServerID());
-            intent.putExtra("secret",clickedPhoto.getSecret());
+            intent.putExtra("photoID", clickedPhoto.getPhotoID());
+            intent.putExtra("title", clickedPhoto.getTitle());
+            intent.putExtra("farmID", clickedPhoto.getFarmID());
+            intent.putExtra("serverID", clickedPhoto.getServerID());
+            intent.putExtra("secret", clickedPhoto.getSecret());
             this.mContext.startActivity(intent);
 
-        //Toast.makeText(mContext,""+position,Toast.LENGTH_SHORT).show();
         }
     }
 }

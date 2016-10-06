@@ -24,12 +24,11 @@ public class PhotoDetail extends AppCompatActivity {
 
         singleImage = (ImageView) findViewById(R.id.single_photo);
 
-        String imgURL = "https://farm" +getIntent().getStringExtra("farmID")+".staticflickr.com/"+getIntent().getStringExtra("serverID")+"/"+getIntent().getStringExtra("photoID")+
-                "_"+getIntent().getStringExtra("secret")+"_b.jpg";
+        String imgURL = "https://farm" + getIntent().getStringExtra("farmID") + ".staticflickr.com/" + getIntent().getStringExtra("serverID") + "/" + getIntent().getStringExtra("photoID") +
+                "_" + getIntent().getStringExtra("secret") + "_b.jpg";
 
 
-        Log.d("URL", "onCreate: "+ imgURL);
-
+        Log.d("URL", "onCreate: " + imgURL);
 
 
         Picasso.with(PhotoDetail.this)
@@ -37,7 +36,6 @@ public class PhotoDetail extends AppCompatActivity {
                 .into(singleImage);
 
         setTitle(getIntent().getStringExtra("title"));
-
 
 
     }
